@@ -1,0 +1,21 @@
+{% extends 'registration/base1.html' %}
+
+{% block content %}
+    <h2>Create Blood Request</h2>
+    
+    <form method="post" action="{% url 'create_blood_request' donor_id=donor_id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#id_donor').select2();
+        });
+    </script>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,13 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
+    <h2>Donation Details</h2>
+
+    <p>Date: {{ donation.donation_date }}</p>
+    <p>Analysis: {{ donation.analysis }}</p>
+    <p>Pressure: {{ donation.pressure }}</p>
+    <!-- Додайте інші поля донації, які ви хочете відобразити -->
+
+    <a href="{% url 'donor_donations' donor_id=donation.donor.id %}">Back to Donor Donations</a>
+
+{% endblock %}

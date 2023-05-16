@@ -1,0 +1,14 @@
+<!-- add_donor.html -->
+{% extends 'registration/base.html' %}
+
+{% block content %}
+    <h2>Add Donor</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if form.errors %}
+            <p class="error">{{ form.errors }}</p>
+        {% endif %}
+        <input type="submit" value="Add Donor">
+    </form>
+{% endblock %}

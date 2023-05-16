@@ -1,0 +1,44 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+<h2>Donor List</h2>
+
+<form method="get" action="{% url 'donor_list' %}">
+    <label for="sort_by">Sort by:</label>
+    <select name="sort_by" id="sort_by">
+        <option value="last_name" {% if sort_by == 'last_name' %}selected{% endif %}>Last Name</option>
+        <option value="first_name" {% if sort_by == 'first_name' %}selected{% endif %}>First Name</option>
+        <option value="blood_group" {% if sort_by == 'blood_group' %}selected{% endif %}>Blood Group</option>
+        <!-- Додайте інші поля сортування, які ви хочете використовувати -->
+
+    </select>
+    <label for="blood_group">Blood Group:</label>
+    <select name="blood_group" id="blood_group">
+        <option value="" {% if selected_blood_group == '' %}selected{% endif %}>All</option>
+        <option value="1" {% if selected_blood_group == '1' %}selected{% endif %}>A</option>
+        <option value="2" {% if selected_blood_group == '2' %}selected{% endif %}>B</option>
+        <option value="3" {% if selected_blood_group == '3' %}selected{% endif %}>AB</option>
+        <option value="4" {% if selected_blood_group == '4' %}selected{% endif %}>O</option>
+        <!-- Додайте інші групи крові, які ви хочете використовувати -->
+    </select>
+    <input type="text" name="search_query" value="{{ search_query }}" placeholder="Search by name">
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+    {% for donor in donors %}
+    <div>
+        <a href="{% url 'donor_detail' donor.id %}">
+            <h2>{{ donor.first_name }} {{ donor.last_name }}</h2>
+        </a>
+        <p>Date of Birth: {{ donor.date_of_birth }}</p>
+        <p>Gender: {{ donor.gender }}</p>
+        <p>Blood Group: {{ donor.blood_group }}</p>
+        <!-- Додайте інші поля донора, які ви хочете відобразити -->
+    </div>
+    {% empty %}
+        <p>No donors found.</p>
+    {% endfor %}
+    <div></div>
+        <a href="{% url 'add_donor' %}">add donor</a>
+    </div>
+{% endblock %}

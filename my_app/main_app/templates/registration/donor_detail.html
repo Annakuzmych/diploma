@@ -1,0 +1,16 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+    <h2>Donor Details</h2>
+
+    <div>
+        <h2>{{ donor.first_name }} {{ donor.last_name }}</h2>
+        <p>Date of Birth: {{ donor.date_of_birth }}</p>
+        <p>Gender: {{ donor.gender }}</p>
+        <p>Blood Group: {{ donor.blood_group }}</p>
+        <!-- Додайте інші поля донора, які ви хочете відобразити -->
+    </div>
+    <h2>Blood Donations</h2>
+    <a href="{% url 'donor_donations' donor_id=donor.id %}">View All Donations</a>
+    <a href="{% url 'create_blood_request' donor_id=donor.id %}">Create Blood Request</a>
+    <a href="{% url 'donor_list' %}">Back to Donor List</a>
+{% endblock %}
