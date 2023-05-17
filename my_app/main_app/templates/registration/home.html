@@ -1,12 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
     <title>Головна сторінка</title>
 </head>
 <body>
-    <h1>Ласкаво просимо!</h1>
-    <p>Оберіть дію:</p>
-    <a href="{% url 'register' %}">Реєстрація</a>
-    <a href="{% url 'user_login' %}">Вхід</a>
+    <div class="container">
+        <h1>Ласкаво просимо!</h1>
+        <p>Оберіть дію:</p>
+        <div class="buttons">
+            <a class="button" href="{% url 'register' %}">Реєстрація</a>
+            <a class="button" href="{% url 'user_login' %}">Вхід</a>
+        </div>
+    </div>
 </body>
 </html>
+

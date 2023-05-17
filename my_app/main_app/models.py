@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractUser,Group
 from django.db import migrations
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+from datetime import datetime
+import secrets
+
 
 class Role(models.Model):
     name = models.CharField(max_length=50)
@@ -12,10 +15,23 @@ class Role(models.Model):
         return self.name
 
 class ProUser(AbstractUser):
-    role = models.ForeignKey(Role, on_delete=models.PROTECT,null=True, blank=True)
+    role = models.ForeignKey(Role, on_delete=models.PROTECT,default=1, blank=True)
+    invitation_code = models.CharField(max_length=10, unique=True, null=True, blank=True)
 
+class Invitation(models.Model):
+    sender = models.ForeignKey(ProUser, on_delete=models.CASCADE, default=1)
+    email = models.EmailField(default='example@example.com')
+    token = models.CharField(max_length=10, unique=True, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+    is_active = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.email
 
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = secrets.token_hex(5)
+        super().save(*args, **kwargs)
 class Donor(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)

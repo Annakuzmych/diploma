@@ -1,13 +1,15 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-
+ 
 urlpatterns = [
     path('', views.home, name='home'),
     path('accounts/login/', auth_views.LoginView.as_view(redirect_authenticated_user='profile'), name='profile'),
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.register, name='register'),
     path('profile/', views.profile, name='profile'),
+    path('create_invitation/', views.create_invitation, name='create_invitation'),
+    path('invitation_success/', views.invitation_success, name='invitation_success'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
     path('delete_profile/', views.delete_profile, name='delete_profile'),
     path('user_login/', views.user_login, name='user_login'),

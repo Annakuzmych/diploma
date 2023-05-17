@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, update_session_auth_hash,lo
 from django.contrib.auth.models import Group
 from django.contrib import messages
 from .models import ProUser, Donor, BloodRequest,Rejection
-from .forms import ProUserForm,LoginForm, DonorForm,BloodRequestForm,RejectionForm
+from .forms import ProUserForm,LoginForm, DonorForm,BloodRequestForm,RejectionForm,InvitationForm
 
 def home(request):
     return render(request, 'registration/home.html')
@@ -14,13 +14,41 @@ def register(request):
     if request.method == 'POST':
         form = ProUserForm(request.POST)
         if form.is_valid():
+            # Перевірка коду запрошення
+            invitation_code = form.cleaned_data['invitation_code']
+            try:
+                invitation = Invitation.objects.get(code=invitation_code, is_active=True)
+            except Invitation.DoesNotExist:
+                # Якщо код запрошення недійсний або неактивний, перенаправлення на сторінку помилки або повідомлення
+                return redirect('invitation_error')
+            
             user = form.save()
+            invitation.is_active = False
+            invitation.save()
             login(request, user)
             return redirect('profile')
     else:
         form = ProUserForm()
     return render(request, 'registration/register.html', {'form': form})
 
+@login_required
+def create_invitation(request):
+    if request.method == 'POST':
+        form = InvitationForm(request.POST, user=request.user)  # Передайте user через конструктор форми
+        if form.is_valid():
+            invitation = form.save(commit=False)
+            invitation.sender = request.user
+            invitation.save()
+            # Відправка запрошення користувачу (логіка відправки пошти)
+            return redirect('invitation_success')
+    else:
+        form = InvitationForm(user=request.user)  # Передайте user через конструктор форми
+    return render(request, 'registration/create_invitation.html', {'form': form})
+
+
+
+def invitation_success(request):
+    return render(request, 'registration/invitation_success.html')
 
 
 @login_required
