@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'main_app',
+    'django_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -116,11 +117,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-#STATICFILES_DIRS = [
-    #BASE_DIR / "donor/static", "accounts/static"
-#]
+STATICFILES_DIRS = [
+    BASE_DIR / "main_app/static", 
+]
 AUTHENTICATION_BACKENDS = [    'django.contrib.auth.backends.ModelBackend',]
 
 # Default primary key field type
@@ -128,3 +130,13 @@ AUTHENTICATION_BACKENDS = [    'django.contrib.auth.backends.ModelBackend',]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'main_app.ProUser'
+LOGIN_REDIRECT_URL = 'user_login'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'anja.kuzmich@gmail.com'
+EMAIL_HOST_PASSWORD = 'clsgbnipvksxddzc'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'anja.kuzmich@gmail.com'
+
+

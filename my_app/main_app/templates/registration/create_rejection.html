@@ -1,0 +1,14 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
+  <h2>Create Rejection</h2>
+
+  <form method="post" action="{% url 'create_rejection' donation_id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+  
+    <button type="submit">Create Rejection</button>
+  </form>
+  
+  <a href="{% url 'donation_details' donation_id %}">Back to Donation Details</a>
+{% endblock %}  
