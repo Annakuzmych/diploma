@@ -1,0 +1,28 @@
+<!-- rejections.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список браків</title>
+</head>
+<body>
+    <h1>Список браків</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Донор</th>
+                <th>Причина</th>
+                <th>Термін недопуску</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rejection in rejections %}
+            <tr>
+                <td>{{ rejection.blood_request.donor }}</td>
+                <td>{{ rejection.reason }}</td>
+                <td>{{ rejection.unavailability_term }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

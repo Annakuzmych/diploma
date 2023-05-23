@@ -1,7 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'registration/base.html' %}
+
 
 {% block content %}
   <h2>Profile</h2>
-  <p>Username: {{ user.username }}</p>
+  <p>Welcome, {{ user.username }}!</p>
+  <p>First Name: {{ user.first_name }}</p>
+  <p>Last Name: {{ user.last_name }}</p>
   <p>Email: {{ user.email }}</p>
+  <a href="{% url 'edit_profile' %}">Edit Profile</a>
+  <a href="{% url 'logout' %}">Log Out</a>
+  <a href="{% url 'delete_profile' %}">Delete Account</a>
+  <a href="{% url 'donor_list' %}">View Donors</a>
+  <a href="{% url 'create_invitation' %}">Create invitation</a>
+  <a href="{% url 'generate_report' %}">Create report</a>
+
+
 {% endblock %}

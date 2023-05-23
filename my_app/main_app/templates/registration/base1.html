@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>My Website</title>
+    {% block extra_head %}{% endblock %}
+    <!-- Підключення CSS-файлів та стилів -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    
+    <!-- Інші посилання, метатеги та стилі -->
+</head>
+<body>
+    <!-- Вміст шаблону -->
+    
+    <!-- Підключення скриптів -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <!-- Footer content goes here -->
+    </footer>
+    {% block extra_body %}{% endblock %}
+    <!-- Інші скрипти та код -->
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
+    <h2>Donation Form</h2>
+
+    <form method="POST" action="{% url 'confirm_donation' donation_id=donation.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_donation_type">Donation Type:</label>
+            {{ form.donation_type }}
+        </div>
+        <div class="form-group">
+            <label for="id_plasma_units">Plasma Units:</label>
+            {{ form.plasma_units }}
+        </div>
+        <div class="form-group">
+            <label for="id_blood_units">Blood Units:</label>
+            {{ form.blood_units }}
+        </div>
+        <button type="submit">Confirm Donation</button>
+    </form>
+
+    <a href="{% url 'donor_donations' donor_id=donation.donor.id %}">Back to Donor Donations</a>
+{% endblock %}

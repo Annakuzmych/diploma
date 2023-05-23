@@ -1,0 +1,26 @@
+{% extends 'registration/base.html' %}
+
+{% block content %}
+    <h2>Donor Donations</h2>
+
+    <form method="GET" action="{% url 'donor_donations' donor.id %}">
+        <input type="text" name="search" placeholder="Search by date..." value="{{ search_query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+        {% for donation in donations %}
+            <li>
+                <a href="{% url 'donation_details' donation.id %}">{{ donation.donation_date }}</a>
+                {% if not donation.is_confirmed %}
+                    <span style="color: orange;">(Pending Confirmation)</span>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>No donations found.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'donor_list' %}">Back to Donor List</a>
+{% endblock %}
+

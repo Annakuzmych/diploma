@@ -1,0 +1,26 @@
+{% extends 'registration/base.html' %}
+{% block content %}
+    <h2>Donation Details</h2>
+
+    <div>
+        <h2>{{ donation.donor.first_name }} {{ donation.donor.last_name }}</h2>
+        <p>Date of Birth: {{ donation.donor.date_of_birth }}</p>
+        <p>Gender: {{ donation.donor.gender }}</p>
+        <p>Blood Group: {{ donation.donor.blood_group }}</p>
+        <!-- Додайте інші поля донора, які ви хочете відобразити -->
+    </div>
+
+    <h2>Blood Donation</h2>
+    {% if not donation.is_confirmed %}
+        <form method="POST" action="{% url 'confirm_donation' donation.id %}">
+            {% csrf_token %}
+            <button type="submit">Confirm Donation</button>
+        </form>
+    {% endif %}
+
+    <a href="{% url 'donor_donations' donor_id=donation.donor.id %}">Back to Donor Donations</a>
+{% endblock %}
+
+
+
+
